@@ -1,0 +1,26 @@
+CREATE TABLE provincia
+(id_provincia NUMBER
+,nombre VARCHAR (30) NOT NULL
+,CONSTRAINT pk_provincia PRIMARY KEY (id_provincia));
+
+CREATE TABLE departamento
+(id_departamento NUMBER 
+,nombre VARCHAR (30) DEFAULT ('nuevo')
+,presupuesto NUMBER(6,2) 
+,id_provincia NUMBER 
+,CONSTRAINT pk_depart PRIMARY KEY (id_departamento)
+,CONSTRAINT fk_dept_prov FOREIGN KEY (id_provincia) REFERENCES provincia(id_provincia)
+,CONSTRAINT ck_presupuesto CHECK (presupuesto BETWEEN 1000 AND 5000));
+
+CREATE TABLE empleado
+(id_empleado NUMBER
+,nombre VARCHAR (30) NOT NULL
+,salario NUMBER(6,2)
+,comision NUMBER(6,2)
+,id_provincia NUMBER
+,id_departamento NUMBER
+,CONSTRAINT pk_empleado PRIMARY KEY (id_empleado)
+,CONSTRAINT fk_empl_prov FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia)
+,CONSTRAINT fk_emple_depart FOREIGN KEY (id_departamento) REFERENCES departamento(id_departamento)
+,CONSTRAINT ck_sueldo CHECK (sueldo>=0)
+);
